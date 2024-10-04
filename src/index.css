@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.fix{
+    background-repeat: no-repeat;
+}
+
+.hero-section {
+    background-image: url('https://wallpapers.com/images/hd/high-resolution-cottage-at-sea-c72r478obcyd2tuv.jpg');
+    background-size: 120%;
+    animation: moveBg 18s linear infinite;
+  }
+  
+  /* Animación para mover el fondo */
+  @keyframes moveBg {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
