@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Howdy Lemon';
+    src: url('./fonts/nasalization-rg.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Howdy Lemon', sans-serif;
+}
+
 .fix{
     background-repeat: no-repeat;
 }
@@ -9,15 +20,28 @@
 .hero-section {
     background-image: url('https://wallpapers.com/images/hd/high-resolution-cottage-at-sea-c72r478obcyd2tuv.jpg');
     background-size: 120%;
-    animation: moveBg 18s linear infinite;
+    animation: moveBg 18s linear infinite alternate; /* Se agrega 'alternate' */
   }
   
-  /* Animación para mover el fondo */
+  @media (max-width: 768px) {
+    .hero-section {
+      background-size: 150%; /* Aumenta el tamaño de la imagen de fondo para pantallas más pequeñas */
+      height: 400px; /* Reduce la altura del contenedor */
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .hero-section {
+      background-size: 180%; /* Aumenta más el tamaño de la imagen para pantallas pequeñas */
+      height: 350px; /* Ajusta la altura para pantallas móviles */
+    }
+  }
+  
   @keyframes moveBg {
     0% {
-      background-position: 0% 50%;
+      background-position: 0% 50%; /* Comienza en la posición inicial (izquierda) */
     }
     100% {
-      background-position: 100% 50%;
+      background-position: 100% 50%; /* Termina en la posición final (derecha) */
     }
   }

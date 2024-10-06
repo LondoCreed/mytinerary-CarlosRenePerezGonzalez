@@ -1,62 +1,52 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { FaBars, FaTimesCircle, FaUserCircle } from 'react-icons/fa'
+import { HiMiniHomeModern } from "react-icons/hi2"
+import { FaMountainCity } from "react-icons/fa6"
 
-//componente del header
+
+//Header
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // Cierra el menú si la pantalla se hace más grande
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768 && isMenuOpen) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMenuOpen]);
-
-  // Previene el scroll del body cuando el menú está abierto
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = 'unset'
     }
-  }, [isMenuOpen]);
+  }, [isMenuOpen])
   
-  //componente del header
   return (
-    <header className={`bg-stone-800 bg-opacity-90 text-white transition-all duration-300 z-50 relative`}>
+    <header className={`bg-stone-700 bg-opacity-90 text-white transition-all duration-300 z-50 relative`}>
       <div className="container mx-auto flex items-center p-4">
         <div className="flex items-center mr-auto">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-2xl">
-            {isMenuOpen ? <FaTimes /> : <FaBars />}
+            {isMenuOpen ? <FaTimesCircle /> : <FaBars />}
           </button>
+          <FaUserCircle className='text-3xl ms-3' />
         </div>
           <span className="text-2xl font-extrabold tracking-tight">My Tinerary</span>
         <div className="flex items-center ml-auto">
-          {/* Puedes agregar más iconos o enlaces aquí si es necesario */}
         </div>
       </div>
 
-      {/* Menú lateral */}
       <div className={`fixed top-0 left-0 h-full w-56 bg-stone-900 bg-opacity-95 z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex justify-end p-4">
           <button onClick={() => setIsMenuOpen(false)} className="text-2xl">
-            <FaTimes />
+            <FaTimesCircle />
           </button>
         </div>
         <nav className="p-4">
           <ul className="flex flex-col items-center space-y-4">
-            <li>
+            <li className='flex items-center'>
+            <HiMiniHomeModern className='mr-1' />
               <Link to="/" className="flex items-center text-xl hover:text-gray-300 transition duration-300" onClick={() => setIsMenuOpen(false)}>
                 Home
               </Link>
             </li>
-            <li>
+            <li className='flex items-center'>
+            <FaMountainCity className='mr-1' />
               <Link to="/cities" className="flex items-center text-xl hover:text-gray-300 transition duration-300" onClick={() => setIsMenuOpen(false)}>
                 Cities
               </Link>
@@ -65,15 +55,14 @@ const Header = () => {
         </nav>
       </div>
 
-      {/* Overlay para cerrar el menú al hacer clic fuera */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="fixed inset-0 bg-black bg-opacity-60 z-40"
           onClick={() => setIsMenuOpen(false)}
         ></div>
       )}
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
