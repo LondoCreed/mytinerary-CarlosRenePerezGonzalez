@@ -13,14 +13,14 @@ const Footer = () => {
           </div>
           <div>
             <h5 className="text-xl font-bold mb-4">Navigation</h5>
-            <ul className="flex flex-col space-y-4">
+            <ul className="flex flex-col space-y-1">
               <li className='flex items-center'>
-                <Link to="/" className="flex items-center text-xl hover:text-gray-300 transition duration-300" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/" className="flex items-center text-xl hover:text-gray-300 transition duration-300" >
                   Home
                 </Link>
               </li>
               <li className='flex items-center'>
-                <Link to="/cities" className="flex items-center text-xl hover:text-gray-300 transition duration-300" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/cities" className="flex items-center text-xl hover:text-gray-300 transition duration-300">
                   Cities
                 </Link>
               </li>

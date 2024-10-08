@@ -18,7 +18,7 @@ const Header = () => {
   }, [isMenuOpen])
   
   return (
-    <header className={`bg-stone-700 bg-opacity-90 text-white transition-all duration-300 z-50 relative`}>
+    <header className={`bg-gray-900 text-white transition-all duration-300 z-50 relative`}>
       <div className="container mx-auto flex items-center p-4">
         <div className="flex items-center mr-auto">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-2xl">
