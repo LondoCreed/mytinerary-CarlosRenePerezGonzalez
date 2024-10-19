@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './layout/FirstLayout'
 import Hero from './components/HeroSection'
 import Carrusel from './components/Carrusel'
-import Cities from './Cities'
+import Cities from './pages/Cities'
 
 function App() {
   return (
