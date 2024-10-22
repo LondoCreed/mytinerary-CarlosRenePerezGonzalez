@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Cities = () => {
-  const [cities, setCities] = useState([]);
+  const [cities, setCities] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true)
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
 
   const fetchCities = async (term = '') => {
     try {
       setLoading(true)
-      const response = await fetch(`http://localhost:8080/api/cities?name=${term}`);
+      const response = await fetch(`http://localhost:8080/api/cities?name=${term}`)
       const data = await response.json()
       setCities(data.response)
     } catch (error) {
@@ -17,17 +18,34 @@ const Cities = () => {
     } finally {
       setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
     fetchCities()
+
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollToTop(true)
+      } else {
+        setShowScrollToTop(false)
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   const handleSearchChange = (event) => {
-    const term = event.target.value
+    const term = event.target.value;
     setSearchTerm(term)
     fetchCities(term)
-  };
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <section className="py-16 p-5 text-center">
@@ -40,9 +58,9 @@ const Cities = () => {
         onChange={handleSearchChange}
       />
 
-      {loading ? ( 
-        <div className="flex items-center justify-center h-48"> 
-          <p className="text-2xl font-bold text-center">Loading cities...</p> 
+      {loading ? (
+        <div className="flex items-center justify-center h-48">
+          <p className="text-2xl font-bold text-center">Loading cities...</p>
         </div>
       ) : cities.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -69,7 +87,7 @@ const Cities = () => {
           ))}
         </div>
       ) : (
-        <section className="py-16  text-center">
+        <section className="py-16 text-center">
           <div className="max-w-md mx-auto bg-white shadow-md rounded-lg p-6">
             <div className="flex flex-col items-center">
               <p className="text-red-500 text-xl font-semibold mb-2">
@@ -79,6 +97,18 @@ const Cities = () => {
             </div>
           </div>
         </section>
+      )}
+
+      {showScrollToTop && ( 
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-4 right-4 bg-indigo-500 text-white rounded-full p-2 shadow-lg hover:bg-indigo-700 transition"
+          aria-label="Scroll to top"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12l-3-3m0 0l-3 3m3-3v9"></path>
+          </svg>
+        </button>
       )}
     </section>
   )
