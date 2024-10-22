@@ -1,24 +1,39 @@
 # MyTinerary
 
+[![React](https://img.shields.io/badge/React-18.x-blue)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC)](https://tailwindcss.com/)
+[![License: ISC](https://img.shields.io/badge/License-ISC-green.svg)](https://opensource.org/licenses/ISC)
+
 **MyTinerary** es una aplicación web para explorar destinos de viaje, desarrollada en **React** con **Tailwind CSS**. Esta aplicación permite a los usuarios descubrir ciudades y obtener información relevante para planificar sus viajes.
 
-## Tecnologías Utilizadas
+## 🚀 Características Principales
 
-- **React**: Para la construcción de la interfaz de usuario.
-- **React Router**: Para la navegación entre las diferentes páginas de la aplicación.
-- **Tailwind CSS**: Para un estilo moderno y responsivo.
-- **FontAwesome**: Para los iconos en la interfaz de usuario.
-- **React Icons**: Para iconos adicionales.
+- Exploración de destinos turísticos
+- Búsqueda y filtrado de ciudades
+- Visualización de itinerarios personalizados
+- Interfaz responsiva y moderna
+- Carrusel interactivo de destinos populares
+
+## 🛠️ Tecnologías Utilizadas
+
+- **React** - Framework de JavaScript para UI
+- **React Router** - Navegación entre páginas
+- **Tailwind CSS** - Framework de estilos
+- **FontAwesome** - Iconografía principal
+- **React Icons** - Iconos adicionales
+- **Node.js** - Entorno de ejecución
+- **npm** - Gestor de paquetes
+
 
 >[!IMPORTANT]
->## Requisitos previos
+>## ⚙️ Requisitos previos
 >
 >Asegúrate de tener instalados los siguientes programas:
 >
 >- **Node.js** (v14+)
 >- **npm** (incluido con Node.js)
 
-## Instalación
+## 🚀 Instalación
 
 1. Clona este repositorio:
 
@@ -51,7 +66,7 @@
    ```
 
 >[!IMPORTANT] 
->Asegúrate de que el servidor backend esté corriendo en http://localhost:8080 antes de iniciar la aplicación.
+> ⚠️ Asegúrate de que el servidor backend esté corriendo en http://localhost:8080 antes de iniciar la aplicación.
 
 >[!NOTE]
 >
@@ -66,7 +81,7 @@
 >Cities: Muestra una lista de ciudades disponibles.
 
 >[!NOTE]
->## Contribución
+>## 🤝 Contribución
 >
 >Si deseas contribuir a este proyecto, por favor sigue estos pasos:
 >
@@ -76,6 +91,14 @@
 >4. Envía un push a la rama (`git push origin feature/nueva-funcionalidad`).
 >5. Crea un Pull Request.
 
-## Licencia
+## 📝 Licencia
 
-Este proyecto está bajo la licencia ISC.
+Este proyecto está bajo la licencia ISC. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+## 📞 Contacto
+
+d.londocreed@gmail.com
+
+Carlos Rene Perez Gonzalez - [@LondoCreed](https://github.com/LondoCreed)
+
+Link del proyecto: [https://github.com/LondoCreed/mytinerary-CarlosRenePerezGonzalez](https://github.com/LondoCreed/mytinerary-CarlosRenePerezGonzalez)
