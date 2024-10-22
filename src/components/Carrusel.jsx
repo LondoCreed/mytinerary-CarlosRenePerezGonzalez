@@ -1,24 +1,25 @@
 import { useState, useEffect } from 'react'
 
-const cities = [
-  { name: "New York", image: "https://th.bing.com/th/id/R.0faf7e911308759d6b2249ac6ecc0155?rik=Ngcl8k4U0ghavg&pid=ImgRaw&r=0" },
-  { name: "London", image: "https://plus.unsplash.com/premium_photo-1664303991463-36449a65d3d6?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bG9uZG9uJTIwZW5nbGFuZHxlbnwwfHwwfHx8MA%3D%3D" },
-  { name: "Paris", image: "https://wallpapers.com/images/hd/paris-desktop-wallpaper-ctt26p0uve9skjly.jpg" },
-  { name: "Tokyo", image: "https://th.bing.com/th/id/R.dd5daa7672ea566beacdbe2329234fa1?rik=io0gbaOgx%2fT1zg&pid=ImgRaw&r=0" },
-  { name: "Sydney", image: "https://wallpapercave.com/wp/76YMeDJ.jpg" },
-  { name: "Rio de Janeiro", image: "https://images.hdqwalls.com/download/rio-de-janeiro-brazil-cityscape-evening-sunset-hy-1920x1080.jpg" },
-  { name: "Cape Town", image: "https://cdn.wallpapersafari.com/25/78/rbLaM6.jpg" },
-  { name: "Rome", image: "https://www.pixelstalk.net/wp-content/uploads/images1/Rome-wallpaper-free-hd.jpg" },
-  { name: "Moscow", image: "https://th.bing.com/th/id/R.505e44f236422933be1b2e00dd84a1d0?rik=dQOJvHbq2TwYag&pid=ImgRaw&r=0" },
-  { name: "Toronto", image: "https://th.bing.com/th/id/R.46b38bb4cdcff30f21c2a59bb6f81966?rik=XP7QW1l2dOj5Uw&pid=ImgRaw&r=0" },
-  { name: "Dubai", image: "https://th.bing.com/th/id/R.97a8f71c89678f8571ba48f4fdf495ad?rik=4mvYJQJkS2HAOA&pid=ImgRaw&r=0" },
-  { name: "Beijing", image: "https://c4.wallpaperflare.com/wallpaper/767/647/605/night-lights-china-skyline-beijing-wallpaper-preview.jpg" },
-]
-
 const Carrusel = () => {
+  const [cities, setCities] = useState([])
   const [currentSlide, setCurrentSlide] = useState(0)
   const [itemsPerSlide, setItemsPerSlide] = useState(4)
   const [disableTransition, setDisableTransition] = useState(false)
+
+  useEffect(() => {
+    
+    const fetchCities = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/cities')
+        const data = await response.json()
+        setCities(data.response.slice(0, 12))
+      } catch (error) {
+        console.error('Error to fetch data:', error)
+      }
+    }
+
+    fetchCities()
+  }, [])
 
   useEffect(() => {
     const Resize = () => {
@@ -44,23 +45,30 @@ const Carrusel = () => {
       }
     }
 
-    Resize();
+    Resize()
     window.addEventListener('resize', Resize);
-    return () => window.removeEventListener('resize', Resize);
-  }, [itemsPerSlide, currentSlide]);
+    return () => window.removeEventListener('resize', Resize)
+  }, [itemsPerSlide, currentSlide, cities.length])
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % Math.ceil(cities.length / itemsPerSlide))
     }, 5000)
     return () => clearInterval(interval)
-  }, [itemsPerSlide])
+  }, [itemsPerSlide, cities.length])
 
   const goToSlide = (index) => {
-    setCurrentSlide(index)
-  }
+    const totalSlides = Math.ceil(cities.length / itemsPerSlide)
+    if (index < 0) {
+      setCurrentSlide(totalSlides - 1)
+    } else if (index >= totalSlides) {
+      setCurrentSlide(0)
+    } else {
+      setCurrentSlide(index)
+    }
+  };
 
-  const slides = []
+  const slides = [];
   for (let i = 0; i < cities.length; i += itemsPerSlide) {
     slides.push(cities.slice(i, i + itemsPerSlide))
   }
@@ -80,7 +88,7 @@ const Carrusel = () => {
               {slide.map((city, idx) => (
                 <div key={idx} className={`p-4 ${itemsPerSlide === 1 ? 'w-full' : itemsPerSlide === 2 ? 'w-1/2' : itemsPerSlide === 3 ? 'w-1/3' : 'w-1/4'}`}>
                   <img
-                    src={city.image}
+                    src={city.photo}
                     alt={city.name}
                     className="w-full h-60 object-cover rounded-md"
                   />
@@ -94,7 +102,7 @@ const Carrusel = () => {
         <div className="absolute top-1/2 transform -translate-y-1/2 left-6">
           <button
             className="bg-purple-800 text-white px-4 py-2 rounded-full hover:bg-red-700"
-            onClick={() => goToSlide((currentSlide - 1 + slides.length) % slides.length)}
+            onClick={() => goToSlide(currentSlide - 1)}
           >
             Prev
           </button>
@@ -102,7 +110,7 @@ const Carrusel = () => {
         <div className="absolute top-1/2 transform -translate-y-1/2 right-6">
           <button
             className="bg-purple-800 text-white px-4 py-2 rounded-full hover:bg-red-700"
-            onClick={() => goToSlide((currentSlide + 1) % slides.length)}
+            onClick={() => goToSlide(currentSlide + 1)}
           >
             Next
           </button>
