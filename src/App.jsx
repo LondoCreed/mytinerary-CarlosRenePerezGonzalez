@@ -3,6 +3,7 @@ import Layout from './layout/FirstLayout'
 import Hero from './components/HeroSection'
 import Carrusel from './components/Carrusel'
 import Cities from './pages/Cities'
+import CityDetail from './pages/CityDetail'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             </>
           } />
           <Route path="/cities" element={<Cities />} />
+          <Route path="/city/:id" element={<CityDetail />} />
         </Routes>
       </Layout>
     </Router>
