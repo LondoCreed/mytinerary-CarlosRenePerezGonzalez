@@ -38,7 +38,8 @@ const CitiesAndSearch = () => {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end p-4">
-                    <h3 className="text-xl font-bold text-white mb-2">{city.name}</h3>
+                    <div className='flex justify-between'><h3 className="text-xl font-bold text-white mb-2">{city.name}</h3>
+                    <p className=" text-xl font-bold text-white mb-2">{city.country}</p></div>
                     <Link
                       to={`/city/${city._id}`}
                       className="text-white bg-purple-800 hover:bg-purple-500 py-1 px-4 rounded"
