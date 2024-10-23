@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './layout/FirstLayout'
-import Hero from './components/HeroSection'
-import Carrusel from './components/Carrusel'
+import Home from './pages/Home'
 import Cities from './pages/Cities'
 import CityDetail from './pages/CityDetail'
 
@@ -10,12 +9,7 @@ function App() {
     <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <Carrusel />
-            </>
-          } />
+          <Route path="/" element={<Home />} />
           <Route path="/cities" element={<Cities />} />
           <Route path="/city/:id" element={<CityDetail />} />
         </Routes>
@@ -24,4 +18,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
