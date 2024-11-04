@@ -1,9 +1,9 @@
-import CityDetailsBuilding from '../components/CityDetailsBuilding';
+import CityDetailsComponent from '../components/CityDetailsComponent';
 
 const CityDetails = () => {
   return (
     <div>
-      <CityDetailsBuilding />
+      <CityDetailsComponent />
     </div>
   )
 }

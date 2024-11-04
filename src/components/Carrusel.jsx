@@ -1,82 +1,75 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState, useMemo } from 'react' 
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCities } from '../store/actions/citiesActions'
+import { Link } from 'react-router-dom'
 
 const Carrusel = () => {
-  const [cities, setCities] = useState([])
+  const dispatch = useDispatch()
+  const allCities = useSelector(state => state.cities.cities)
+  const cities = useMemo(() => allCities.slice(0, 12), [allCities])
   const [currentSlide, setCurrentSlide] = useState(0)
   const [itemsPerSlide, setItemsPerSlide] = useState(4)
   const [disableTransition, setDisableTransition] = useState(false)
 
   useEffect(() => {
-    
-    const fetchCities = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/cities')
-        const data = await response.json()
-        setCities(data.response.slice(0, 12))
-      } catch (error) {
-        console.error('Error to fetch data:', error)
-      }
-    }
-
-    fetchCities()
-  }, [])
+    dispatch(fetchCities());
+  }, [dispatch]);
 
   useEffect(() => {
     const Resize = () => {
-      let newItemsPerSlide = 4
+      let newItemsPerSlide = 4;
       if (window.innerWidth < 640) {
-        newItemsPerSlide = 1
+        newItemsPerSlide = 1;
       } else if (window.innerWidth < 768) {
-        newItemsPerSlide = 2
+        newItemsPerSlide = 2;
       } else if (window.innerWidth < 1024) {
-        newItemsPerSlide = 3
+        newItemsPerSlide = 3;
       }
 
       if (newItemsPerSlide !== itemsPerSlide) {
-        setDisableTransition(true)
-        setItemsPerSlide(newItemsPerSlide)
+        setDisableTransition(true);
+        setItemsPerSlide(newItemsPerSlide);
 
         const newSlideCount = Math.ceil(cities.length / newItemsPerSlide);
         if (currentSlide >= newSlideCount) {
-          setCurrentSlide(newSlideCount - 1)
+          setCurrentSlide(newSlideCount - 1);
         }
 
-        setTimeout(() => setDisableTransition(false), 100)
+        setTimeout(() => setDisableTransition(false), 100);
       }
-    }
+    };
 
-    Resize()
+    Resize();
     window.addEventListener('resize', Resize);
-    return () => window.removeEventListener('resize', Resize)
-  }, [itemsPerSlide, currentSlide, cities.length])
+    return () => window.removeEventListener('resize', Resize);
+  }, [itemsPerSlide, currentSlide, cities.length]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % Math.ceil(cities.length / itemsPerSlide))
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [itemsPerSlide, cities.length])
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % Math.ceil(cities.length / itemsPerSlide));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [itemsPerSlide, cities.length]);
 
   const goToSlide = (index) => {
-    const totalSlides = Math.ceil(cities.length / itemsPerSlide)
+    const totalSlides = Math.ceil(cities.length / itemsPerSlide);
     if (index < 0) {
-      setCurrentSlide(totalSlides - 1)
+      setCurrentSlide(totalSlides - 1);
     } else if (index >= totalSlides) {
-      setCurrentSlide(0)
+      setCurrentSlide(0);
     } else {
-      setCurrentSlide(index)
+      setCurrentSlide(index);
     }
   };
 
   const slides = [];
   for (let i = 0; i < cities.length; i += itemsPerSlide) {
-    slides.push(cities.slice(i, i + itemsPerSlide))
+    slides.push(cities.slice(i, i + itemsPerSlide));
   }
 
   return (
     <section className="mt-8">
       <h2 className="text-center text-3xl font-bold mb-6 text-white">Popular Mytineraries</h2>
-
       <div className="relative w-full">
         <div className="overflow-hidden relative h-[300px]">
           {slides.map((slide, index) => (
@@ -87,11 +80,13 @@ const Carrusel = () => {
             >
               {slide.map((city, idx) => (
                 <div key={idx} className={`p-4 ${itemsPerSlide === 1 ? 'w-full' : itemsPerSlide === 2 ? 'w-1/2' : itemsPerSlide === 3 ? 'w-1/3' : 'w-1/4'}`}>
-                  <img
-                    src={city.photo}
-                    alt={city.name}
-                    className="w-full h-60 object-cover rounded-md"
-                  />
+                  <Link to={`/city/${city._id}`}>
+                    <img
+                      src={city.photo}
+                      alt={city.name}
+                      className="w-full h-60 object-cover rounded-md"
+                    />
+                  </Link>
                   <h3 className="text-center mt-2 font-semibold text-white">{city.name}</h3>
                 </div>
               ))}
@@ -127,7 +122,7 @@ const Carrusel = () => {
         ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Carrusel
+export default Carrusel;
