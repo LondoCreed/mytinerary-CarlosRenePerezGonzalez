@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 import { WiDaySunny } from "react-icons/wi"
 
-//Combinacion de Hero  ft Call to action
-
 const Hero = () => {
   return (
     <section className="hero-section relative fix bg-cover bg-center lg:h-[600px] md:h-[500px] sm:h-[400px] w-auto flex items-center justify-center text-white overflow-hidden">
