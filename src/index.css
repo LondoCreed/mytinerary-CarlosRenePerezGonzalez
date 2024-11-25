@@ -22,6 +22,26 @@ body {
     background-size: 120%;
     animation: moveBg 18s linear infinite alternate; /* Se agrega 'alternate' */
   }
+
+  .dash-section {
+    background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8fA%3D%3D');
+    background-size: auto;  /* Cambiamos de 120% a cover */
+    background-position: center;
+    animation: moveBg 25s linear infinite alternate;
+}
+
+.login-section {
+  background-image: url('https://img.freepik.com/vector-gratis/fondo-viaje-realista-elementos_52683-77784.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.div-con-fondo {
+  background-color: rgba(0, 0, 0, 0.5); /* Color negro con 50% de opacidad */
+  color: white; /* Asegura que el texto sea legible */
+  padding: 20px;
+  border-radius: 10px; /* Esquinas redondeadas (opcional) */
+}
+ 
   
   @media (max-width: 768px) {
     .hero-section {
