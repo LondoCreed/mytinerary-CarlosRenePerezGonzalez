@@ -65,7 +65,7 @@ export const updateUser = createAsyncThunk(
   async ({ userId, userData }, { getState, rejectWithValue }) => {
     try {
       const token = getState().auth.user.token;
-      const response = await fetch(`${BASE_URL}/users/update/${userId}`, {
+      const response = await fetch(`${BASE_URL}/users/updateById/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ export const signOut = createAsyncThunk(
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         }
-      });
+      }); // no lo uso en la app pero para efectos de practica y despues lo usare para aplicar cambios en el componente extra que cree.
       
       if (!response.ok) throw new Error('Logout failed');
       await response.json();
