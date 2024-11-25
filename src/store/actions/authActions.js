@@ -46,7 +46,7 @@ export const signUp = createAsyncThunk(
   'auth/signUp',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${BASE_URL}/users/register`, {
+      const response = await fetch(`${BASE_URL}/auth/signUp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData)
